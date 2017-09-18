@@ -1,7 +1,6 @@
 import { parse } from 'babylon';
 import _traverse, { Hub, NodePath } from 'babel-traverse';
 
-
 function buildCodeFrameError(node, message, Error) {
   // eslint-disable-next-line no-underscore-dangle
   const loc = node && (node.loc || node._loc);
@@ -15,9 +14,9 @@ function parseSource(src) {
   return parse(src, {
     sourceType: 'module',
     plugins: [
+      'typescript',
       'asyncFunctions',
       'jsx',
-      'flow',
       'classConstructorCall',
       'doExpressions',
       'trailingFunctionCommas',
@@ -32,7 +31,6 @@ function parseSource(src) {
     ],
   });
 }
-
 
 export default function traverse(source, visitors, opts) {
   const ast = parseSource(source);
